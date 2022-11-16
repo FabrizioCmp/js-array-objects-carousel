@@ -27,6 +27,8 @@ const btnDownEl = document.querySelector(".btn_down");
 const imgContainerEl = document.querySelector(".img_container");
 const imgEl = document.createElement("img");
 const textEl = document.createElement("div");
+const boxMiniatureEl = document.querySelector(".box_miniature");
+const boxImgEl = document.querySelector(".box_img");
 
 let currentImg = 1;
 
@@ -76,3 +78,47 @@ btnDownEl.addEventListener("click", function(){
 
 
 /************************SLIDER con miniature************************/ 
+const imgCurrentEl = document.createElement("img");
+const textEl2 = document.createElement("div");
+let imgSelected = 0;
+
+
+for (let i = 0 ; i < images.length ; i++){
+    const imgMiniaturaEl = document.createElement("img");
+    const divMiniaturaEl = document.createElement("div");
+    
+    // creazione miniature 
+    divMiniaturaEl.style.height = `calc(100% /${images.length})`;
+    imgMiniaturaEl.src = `imgs/${images[i].image}`;
+    imgMiniaturaEl.classList.add("img_miniatura");
+    divMiniaturaEl.append(imgMiniaturaEl);
+    boxMiniatureEl.append(divMiniaturaEl);
+    divMiniaturaEl.dataset.value = i;
+
+    //di default evidenzio la prima immagine
+    if (i === 0 ){
+        divMiniaturaEl.classList.add("active");
+        divMiniaturaEl.style.opacity = "1";
+        imgCurrentEl.src = `imgs/${images[i].image}`;
+        imgCurrentEl.classList.add("img_miniatura");
+        boxImgEl.append(imgCurrentEl);
+    }
+
+    //effetto On click sulla miniatura, cambia immagine e testo
+    divMiniaturaEl.addEventListener("click", function(){
+        document.querySelector(".active").style.opacity = ".7";
+        document.querySelector(".active").classList.remove("active");
+        this.classList.add("active");
+        this.style.opacity = "1";
+        const newImgEl = document.createElement("img");
+        console.log(this.children[0].src);
+        newImgEl.src = this.children[0].src;
+        newImgEl.classList.add("img_miniatura");
+        boxImgEl.innerHTML="" ;
+        textEl2.classList.add("text_container");
+        textEl2.innerHTML = `<h2>${images[parseInt(this.dataset.value)].title}</h2><p>${images[parseInt(this.dataset.value)].text}</p>`
+        boxImgEl.append(textEl2, newImgEl);      
+    })
+
+}
+
