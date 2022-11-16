@@ -1,3 +1,4 @@
+// dichiarazione variabili
 const images = [
     {
         image: 'img/01.webp',
@@ -25,14 +26,21 @@ const btnUPEl = document.querySelector(".btn_up");
 const btnDownEl = document.querySelector(".btn_down");
 const imgContainerEl = document.querySelector(".img_container");
 const imgEl = document.createElement("img");
+const textEl = document.createElement("div");
+
 let currentImg = 1;
+
+/************************SLIDER BASE************************/ 
 
 //inserisco immagine iniziale
 imgEl.src = `imgs/${images[currentImg -1].image}`;
-imgContainerEl.append(imgEl);
+textEl.classList.add("text_container");
+textEl.innerHTML = `<h2>${images[currentImg -1].title}</h2><p>${images[currentImg -1].text}</p>`
+imgContainerEl.append(imgEl, textEl);
 
 // btn_UP click
 btnUPEl.addEventListener("click", function(){
+    
 
     // reset contatore immagine quando arriva alla fine
     if(currentImg === images.length){
@@ -42,8 +50,11 @@ btnUPEl.addEventListener("click", function(){
     // aumento contatore e display immagine
     currentImg++ ;
     imgEl.src = `imgs/${images[currentImg -1].image}`;
+    imgEl.classList.add(".position-relative");
+    textEl.classList.add("text_container");
+    textEl.innerHTML = `<h2>${images[currentImg -1].title}</h2><p>${images[currentImg -1].text}</p>`
     imgContainerEl.innerHTML = "";
-    imgContainerEl.append(imgEl);
+    imgContainerEl.append(imgEl,textEl);
 })
 
 
@@ -58,5 +69,10 @@ btnDownEl.addEventListener("click", function(){
     currentImg-- ;
     imgEl.src = `imgs/${images[currentImg - 1].image}`;
     imgContainerEl.innerHTML = "";
-    imgContainerEl.append(imgEl);
+    textEl.classList.add("text_container");
+    textEl.innerHTML = `<h2>${images[currentImg -1].title}</h2><p>${images[currentImg -1].text}</p>`
+    imgContainerEl.append(imgEl,textEl);
 })
+
+
+/************************SLIDER con miniature************************/ 
